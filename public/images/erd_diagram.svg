@@ -1,0 +1,294 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="880" viewBox="0 0 1280 880">
+  <defs>
+    <style>
+      .bg-rect { fill: #ffffff; }
+      .entity-box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 8; }
+      .entity-header { fill: #1e40af; }
+      .entity-header-pivot { fill: #6366f1; }
+      .entity-header-text { fill: #ffffff; font-weight: 700; font-size: 13px; font-family: system-ui, sans-serif; text-anchor: middle; }
+      .pk-row { fill: #fef9c3; }
+      .fk-row { fill: #ede9fe; }
+      .attr-text { fill: #0f172a; font-size: 11px; font-family: 'Consolas', monospace; }
+      .attr-type { fill: #64748b; font-size: 10px; font-family: 'Consolas', monospace; }
+      .pk-badge { fill: #ca8a04; }
+      .fk-badge { fill: #6366f1; }
+      .rel-line-solid { stroke: #2563eb; stroke-width: 1.8; fill: none; }
+      .rel-line-dashed { stroke: #6366f1; stroke-width: 1.5; fill: none; stroke-dasharray: 5,4; }
+      .rel-line-eval { stroke: #64748b; stroke-width: 1.5; fill: none; stroke-dasharray: 4,4; }
+      .note-text { fill: #475569; font-size: 11px; font-family: system-ui, sans-serif; }
+    </style>
+    <marker id="arrow-erd-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-erd-purple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6366f1"/>
+    </marker>
+    <marker id="arrow-erd-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg-rect"/>
+
+  <!-- Title Header -->
+  <text x="30" y="38" font-size="18" font-weight="800" fill="#0f172a" font-family="system-ui, sans-serif">ENTITY RELATIONSHIP DIAGRAM (ERD) — EVALUASI KINERJA ASLAB</text>
+  <text x="30" y="58" font-size="12" fill="#64748b" font-family="system-ui, sans-serif">Skema Basis Data Relasional, Foreign Key, dan Constraint Unik (MySQL / SQLite)</text>
+
+  <!-- ==================== USERS TABLE ==================== -->
+  <g id="tbl-users" transform="translate(30, 80)">
+    <rect width="240" height="295" rx="8" class="entity-box"/>
+    <path d="M 0,8 Q 0,0 8,0 L 232,0 Q 240,0 240,8 L 240,36 L 0,36 Z" class="entity-header"/>
+    <text x="120" y="23" class="entity-header-text">users</text>
+
+    <g transform="translate(0, 36)">
+      <rect x="0" y="0" width="240" height="22" class="pk-row"/>
+      <text x="10" y="15" class="attr-text">🔑 id</text>
+      <text x="145" y="15" class="attr-type">BIGINT PK AI</text>
+
+      <text x="10" y="38" class="attr-text">name</text>
+      <text x="145" y="38" class="attr-type">VARCHAR(255)</text>
+
+      <rect x="0" y="46" width="240" height="22" fill="#dcfce7"/>
+      <text x="10" y="61" class="attr-text">✦ email</text>
+      <text x="145" y="61" class="attr-type">VARCHAR UNQ</text>
+
+      <text x="10" y="84" class="attr-text">password</text>
+      <text x="145" y="84" class="attr-type">VARCHAR(255)</text>
+
+      <text x="10" y="107" class="attr-text">nim</text>
+      <text x="145" y="107" class="attr-type">VARCHAR NULL</text>
+
+      <text x="10" y="130" class="attr-text">kode_asisten</text>
+      <text x="145" y="130" class="attr-type">VARCHAR NULL</text>
+
+      <rect x="0" y="138" width="240" height="22" fill="#f1f5f9"/>
+      <text x="10" y="153" class="attr-text">role</text>
+      <text x="110" y="153" class="attr-type">ENUM(adm,klb,asl)</text>
+
+      <text x="10" y="176" class="attr-text">status_aslab</text>
+      <text x="110" y="176" class="attr-type">ENUM(akt,cut,alm)</text>
+
+      <text x="10" y="199" class="attr-text">email_verified_at</text>
+      <text x="145" y="199" class="attr-type">TIMESTAMP</text>
+
+      <text x="10" y="222" class="attr-text">remember_token</text>
+      <text x="145" y="222" class="attr-type">VARCHAR(100)</text>
+
+      <text x="10" y="245" class="attr-type">created_at / updated_at</text>
+    </g>
+  </g>
+
+  <!-- ==================== SEMESTERS TABLE ==================== -->
+  <g id="tbl-semesters" transform="translate(460, 80)">
+    <rect width="220" height="150" rx="8" class="entity-box"/>
+    <path d="M 0,8 Q 0,0 8,0 L 212,0 Q 220,0 220,8 L 220,36 L 0,36 Z" class="entity-header"/>
+    <text x="110" y="23" class="entity-header-text">semesters</text>
+
+    <g transform="translate(0, 36)">
+      <rect x="0" y="0" width="220" height="22" class="pk-row"/>
+      <text x="10" y="15" class="attr-text">🔑 id</text>
+      <text x="130" y="15" class="attr-type">BIGINT PK AI</text>
+
+      <text x="10" y="38" class="attr-text">nama_semester</text>
+      <text x="130" y="38" class="attr-type">VARCHAR(255)</text>
+
+      <rect x="0" y="46" width="220" height="22" fill="#f1f5f9"/>
+      <text x="10" y="61" class="attr-text">status</text>
+      <text x="85" y="61" class="attr-type">ENUM(aktif,tidak_aktif)</text>
+
+      <text x="10" y="84" class="attr-type">created_at / updated_at</text>
+    </g>
+  </g>
+
+  <!-- ==================== ASLAB_SEMESTER PIVOT ==================== -->
+  <g id="tbl-aslab-sem" transform="translate(300, 270)">
+    <rect width="240" height="185" rx="8" class="entity-box" stroke="#6366f1" stroke-width="2"/>
+    <path d="M 0,8 Q 0,0 8,0 L 232,0 Q 240,0 240,8 L 240,36 L 0,36 Z" class="entity-header-pivot"/>
+    <text x="120" y="23" class="entity-header-text">aslab_semester [pivot]</text>
+
+    <g transform="translate(0, 36)">
+      <rect x="0" y="0" width="240" height="22" class="pk-row"/>
+      <text x="10" y="15" class="attr-text">🔑 id</text>
+      <text x="150" y="15" class="attr-type">BIGINT PK AI</text>
+
+      <rect x="0" y="22" width="240" height="22" class="fk-row"/>
+      <text x="10" y="37" class="attr-text">🔗 semester_id</text>
+      <text x="135" y="37" class="attr-type" fill="#6366f1">FK → semesters</text>
+
+      <rect x="0" y="44" width="240" height="22" class="fk-row"/>
+      <text x="10" y="59" class="attr-text">🔗 aslab_id</text>
+      <text x="135" y="59" class="attr-type" fill="#6366f1">FK → users</text>
+
+      <text x="10" y="82" class="attr-text">status</text>
+      <text x="95" y="82" class="attr-type">ENUM(akt,cut,alm)</text>
+
+      <rect x="0" y="90" width="240" height="22" fill="#dcfce7"/>
+      <text x="10" y="105" class="attr-text">✦ UNQ(semester_id, aslab_id)</text>
+      <text x="10" y="128" class="attr-type">created_at / updated_at</text>
+    </g>
+  </g>
+
+  <!-- ==================== KRITERIAS TABLE ==================== -->
+  <g id="tbl-kriterias" transform="translate(740, 80)">
+    <rect width="240" height="210" rx="8" class="entity-box"/>
+    <path d="M 0,8 Q 0,0 8,0 L 232,0 Q 240,0 240,8 L 240,36 L 0,36 Z" class="entity-header"/>
+    <text x="120" y="23" class="entity-header-text">kriterias</text>
+
+    <g transform="translate(0, 36)">
+      <rect x="0" y="0" width="240" height="22" class="pk-row"/>
+      <text x="10" y="15" class="attr-text">🔑 id</text>
+      <text x="150" y="15" class="attr-type">BIGINT PK AI</text>
+
+      <rect x="0" y="22" width="240" height="22" class="fk-row"/>
+      <text x="10" y="37" class="attr-text">🔗 semester_id</text>
+      <text x="135" y="37" class="attr-type" fill="#6366f1">FK → semesters</text>
+
+      <text x="10" y="60" class="attr-text">nama_kriteria</text>
+      <text x="135" y="60" class="attr-type">VARCHAR(255)</text>
+
+      <text x="10" y="83" class="attr-text">persentase_kriteria</text>
+      <text x="150" y="83" class="attr-type">INT</text>
+
+      <text x="10" y="106" class="attr-text">bobot_cf</text>
+      <text x="135" y="106" class="attr-type">TINYINT (def 60)</text>
+
+      <text x="10" y="129" class="attr-text">bobot_sf</text>
+      <text x="135" y="129" class="attr-type">TINYINT (def 40)</text>
+
+      <text x="10" y="152" class="attr-type">created_at / updated_at</text>
+    </g>
+  </g>
+
+  <!-- ==================== SUB_KRITERIAS TABLE ==================== -->
+  <g id="tbl-subkriterias" transform="translate(740, 340)">
+    <rect width="240" height="190" rx="8" class="entity-box"/>
+    <path d="M 0,8 Q 0,0 8,0 L 232,0 Q 240,0 240,8 L 240,36 L 0,36 Z" class="entity-header"/>
+    <text x="120" y="23" class="entity-header-text">sub_kriterias</text>
+
+    <g transform="translate(0, 36)">
+      <rect x="0" y="0" width="240" height="22" class="pk-row"/>
+      <text x="10" y="15" class="attr-text">🔑 id</text>
+      <text x="150" y="15" class="attr-type">BIGINT PK AI</text>
+
+      <rect x="0" y="22" width="240" height="22" class="fk-row"/>
+      <text x="10" y="37" class="attr-text">🔗 kriteria_id</text>
+      <text x="135" y="37" class="attr-type" fill="#6366f1">FK → kriterias</text>
+
+      <text x="10" y="60" class="attr-text">nama_sub</text>
+      <text x="135" y="60" class="attr-type">VARCHAR(255)</text>
+
+      <text x="10" y="83" class="attr-text">nilai_target</text>
+      <text x="135" y="83" class="attr-type">INT / DECIMAL</text>
+
+      <rect x="0" y="90" width="240" height="22" fill="#f1f5f9"/>
+      <text x="10" y="105" class="attr-text">jenis</text>
+      <text x="100" y="105" class="attr-type">core | secondary</text>
+
+      <text x="10" y="128" class="attr-type">created_at / updated_at</text>
+    </g>
+  </g>
+
+  <!-- ==================== RUBRIK_PENILAIANS TABLE ==================== -->
+  <g id="tbl-rubrik" transform="translate(1030, 340)">
+    <rect width="220" height="185" rx="8" class="entity-box"/>
+    <path d="M 0,8 Q 0,0 8,0 L 212,0 Q 220,0 220,8 L 220,36 L 0,36 Z" class="entity-header"/>
+    <text x="110" y="23" class="entity-header-text">rubrik_penilaians</text>
+
+    <g transform="translate(0, 36)">
+      <rect x="0" y="0" width="220" height="22" class="pk-row"/>
+      <text x="10" y="15" class="attr-text">🔑 id</text>
+      <text x="135" y="15" class="attr-type">BIGINT PK AI</text>
+
+      <rect x="0" y="22" width="220" height="22" class="fk-row"/>
+      <text x="10" y="37" class="attr-text">🔗 sub_kriteria_id</text>
+      <text x="125" y="37" class="attr-type" fill="#6366f1">FK → sub_krit</text>
+
+      <text x="10" y="60" class="attr-text">skor</text>
+      <text x="90" y="60" class="attr-type">TINYINT (1-5)</text>
+
+      <text x="10" y="83" class="attr-text">deskripsi</text>
+      <text x="90" y="83" class="attr-type">TEXT</text>
+
+      <rect x="0" y="90" width="220" height="22" fill="#dcfce7"/>
+      <text x="10" y="105" class="attr-text">✦ UNQ(sub_kriteria_id, skor)</text>
+      <text x="10" y="128" class="attr-type">created_at / updated_at</text>
+    </g>
+  </g>
+
+  <!-- ==================== EVALUASIS TABLE ==================== -->
+  <g id="tbl-evaluasis" transform="translate(460, 560)">
+    <rect width="270" height="240" rx="8" class="entity-box"/>
+    <path d="M 0,8 Q 0,0 8,0 L 262,0 Q 270,0 270,8 L 270,36 L 0,36 Z" class="entity-header"/>
+    <text x="135" y="23" class="entity-header-text">evaluasis</text>
+
+    <g transform="translate(0, 36)">
+      <rect x="0" y="0" width="270" height="22" class="pk-row"/>
+      <text x="10" y="15" class="attr-text">🔑 id</text>
+      <text x="180" y="15" class="attr-type">BIGINT PK AI</text>
+
+      <rect x="0" y="22" width="270" height="22" class="fk-row"/>
+      <text x="10" y="37" class="attr-text">🔗 evaluator_id</text>
+      <text x="155" y="37" class="attr-type" fill="#6366f1">FK → users (evaluator)</text>
+
+      <rect x="0" y="44" width="270" height="22" class="fk-row"/>
+      <text x="10" y="59" class="attr-text">🔗 aslab_id</text>
+      <text x="155" y="59" class="attr-type" fill="#6366f1">FK → users (aslab)</text>
+
+      <rect x="0" y="66" width="270" height="22" class="fk-row"/>
+      <text x="10" y="81" class="attr-text">🔗 sub_kriteria_id</text>
+      <text x="155" y="81" class="attr-type" fill="#6366f1">FK → sub_kriterias</text>
+
+      <rect x="0" y="88" width="270" height="22" class="fk-row"/>
+      <text x="10" y="103" class="attr-text">🔗 semester_id</text>
+      <text x="155" y="103" class="attr-type" fill="#6366f1">FK → semesters</text>
+
+      <text x="10" y="126" class="attr-text">nilai_aktual</text>
+      <text x="155" y="126" class="attr-type">DECIMAL(5,2)</text>
+
+      <rect x="0" y="134" width="270" height="22" fill="#dcfce7"/>
+      <text x="10" y="149" class="attr-text">✦ UNQ(aslab_id, sub_kriteria_id, sem_id)</text>
+      <text x="10" y="172" class="attr-type">created_at / updated_at</text>
+    </g>
+  </g>
+
+  <!-- ==================== RELATIONSHIP LINES ==================== -->
+
+  <!-- users → aslab_semester (pivot) -->
+  <path d="M 270,330 L 300,330" class="rel-line-dashed" marker-end="url(#arrow-erd-purple)"/>
+
+  <!-- semesters → aslab_semester (pivot) -->
+  <path d="M 510,230 L 460,270" class="rel-line-dashed" marker-end="url(#arrow-erd-purple)"/>
+
+  <!-- semesters → kriterias (1:N) -->
+  <path d="M 680,150 L 740,150" class="rel-line-solid" marker-end="url(#arrow-erd-blue)"/>
+  <text x="690" y="142" class="note-text">1 : N</text>
+
+  <!-- kriterias → sub_kriterias (1:N) -->
+  <path d="M 860,290 L 860,340" class="rel-line-solid" marker-end="url(#arrow-erd-blue)"/>
+  <text x="868" y="315" class="note-text">1 : N</text>
+
+  <!-- sub_kriterias → rubrik_penilaians (1:N) -->
+  <path d="M 980,420 L 1030,420" class="rel-line-solid" marker-end="url(#arrow-erd-blue)"/>
+  <text x="990" y="412" class="note-text">1 : N</text>
+
+  <!-- semesters → evaluasis (1:N) -->
+  <path d="M 570,230 L 570,560" class="rel-line-solid" marker-end="url(#arrow-erd-blue)"/>
+  <text x="578" y="500" class="note-text">1 : N</text>
+
+  <!-- sub_kriterias → evaluasis (1:N) -->
+  <path d="M 860,530 L 860,650 L 730,650" class="rel-line-solid" marker-end="url(#arrow-erd-blue)"/>
+  <text x="780" y="642" class="note-text">1 : N</text>
+
+  <!-- users → evaluasis (aslab) -->
+  <path d="M 150,375 L 150,680 L 460,680" class="rel-line-eval" marker-end="url(#arrow-erd-gray)"/>
+  <text x="160" y="672" class="note-text">aslab (1:N)</text>
+
+  <!-- users → evaluasis (evaluator) -->
+  <path d="M 270,200 Q 380,200 380,600 L 460,600" class="rel-line-eval" marker-end="url(#arrow-erd-gray)"/>
+  <text x="320" y="592" class="note-text">evaluator (1:N)</text>
+
+  <!-- Note Footer -->
+  <text x="30" y="850" class="note-text">Keterangan: Relasi M:N antara users (aslab) dan semesters dijembatani oleh tabel pivot aslab_semester.</text>
+  <text x="30" y="868" class="note-text">Tabel evaluasis menjamin 1 nilai per indikator per aslab di setiap semester melalui constraint UNIQUE.</text>
+
+</svg>

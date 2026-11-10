@@ -1,0 +1,296 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="920" viewBox="0 0 1280 920">
+  <defs>
+    <style>
+      .bg-rect { fill: #ffffff; }
+      .cls-box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 6; }
+      .cls-header-model { fill: #2563eb; }
+      .cls-header-service { fill: #7c3aed; }
+      .cls-header-trait { fill: #059669; }
+      .cls-title-type { fill: #dbeafe; font-size: 11px; font-weight: 600; text-anchor: middle; font-family: system-ui, -apple-system, sans-serif; }
+      .cls-title-name { fill: #ffffff; font-size: 13.5px; font-weight: 700; text-anchor: middle; font-family: system-ui, -apple-system, sans-serif; }
+      .cls-sec-title { fill: #64748b; font-size: 10px; font-weight: 700; font-family: system-ui, -apple-system, sans-serif; text-transform: uppercase; letter-spacing: 0.5px; }
+      .cls-prop { fill: #1e293b; font-size: 11px; font-family: 'Consolas', 'Courier New', monospace; }
+      .cls-prop-sub { fill: #64748b; font-size: 10px; font-family: 'Consolas', 'Courier New', monospace; }
+      .cls-meth { fill: #0f172a; font-size: 11px; font-family: 'Consolas', 'Courier New', monospace; }
+      .cls-rel-meth { fill: #2563eb; font-size: 10.5px; font-family: 'Consolas', 'Courier New', monospace; font-weight: 600; }
+      .cls-div { stroke: #e2e8f0; stroke-width: 1; }
+      .rel-line { stroke: #2563eb; stroke-width: 1.5; fill: none; }
+      .rel-line-dashed { stroke: #7c3aed; stroke-width: 1.5; stroke-dasharray: 5,4; fill: none; }
+      .rel-line-muted { stroke: #64748b; stroke-width: 1.5; stroke-dasharray: 4,4; fill: none; }
+      .rel-text { fill: #475569; font-size: 10px; font-family: system-ui, sans-serif; font-weight: 600; }
+      .badge-bg { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 1; rx: 4; }
+    </style>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="100%" height="100%" class="bg-rect"/>
+
+  <!-- Title Watermark / Header -->
+  <text x="30" y="38" font-size="18" font-weight="800" fill="#0f172a" font-family="system-ui, sans-serif">CLASS DIAGRAM — SISTEM EVALUASI KINERJA ASISTEN LABORATORIUM</text>
+  <text x="30" y="58" font-size="12" fill="#64748b" font-family="system-ui, sans-serif">Arsitektur Laravel Eloquent Models, Relationships, Service Layer (Profile Matching), dan Multi-Semester System</text>
+
+  <!-- ============================================================ -->
+  <!-- 1. MODEL: User                                              -->
+  <!-- ============================================================ -->
+  <g id="class-user" transform="translate(30, 80)">
+    <rect width="250" height="425" rx="8" class="cls-box" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.05))"/>
+    <path d="M 0,8 Q 0,0 8,0 L 242,0 Q 250,0 250,8 L 250,42 L 0,42 Z" class="cls-header-model"/>
+    <text x="125" y="16" class="cls-title-type">«Authenticatable Model»</text>
+    <text x="125" y="34" class="cls-title-name">User</text>
+
+    <!-- Attributes -->
+    <text x="12" y="58" class="cls-sec-title">Attributes (Fillable)</text>
+    <line x1="0" y1="64" x2="250" y2="64" class="cls-div"/>
+    <text x="12" y="80" class="cls-prop">+ id: bigint (PK)</text>
+    <text x="12" y="97" class="cls-prop">+ name: string</text>
+    <text x="12" y="114" class="cls-prop">+ email: string [UNQ]</text>
+    <text x="12" y="131" class="cls-prop">+ password: string (hash)</text>
+    <text x="12" y="148" class="cls-prop">+ nim: string|null</text>
+    <text x="12" y="165" class="cls-prop">+ kode_asisten: string|null</text>
+    <text x="12" y="182" class="cls-prop">+ role: enum(admin,kalab,aslab)</text>
+    <text x="12" y="199" class="cls-prop">+ status_aslab: enum(aktif,cuti,alumni)</text>
+    <text x="12" y="216" class="cls-prop-sub"># remember_token: string</text>
+    <text x="12" y="233" class="cls-prop-sub"># timestamps</text>
+
+    <!-- Methods -->
+    <line x1="0" y1="244" x2="250" y2="244" class="cls-div"/>
+    <text x="12" y="259" class="cls-sec-title">Business Methods</text>
+    <line x1="0" y1="265" x2="250" y2="265" class="cls-div"/>
+    <text x="12" y="281" class="cls-meth">+ isAdmin(): bool</text>
+    <text x="12" y="298" class="cls-meth">+ isKalab(): bool</text>
+    <text x="12" y="315" class="cls-meth">+ getStatusDiSemester(semId): str</text>
+    <text x="12" y="332" class="cls-meth"># booted(): void (auto-sync)</text>
+
+    <!-- Relations -->
+    <line x1="0" y1="343" x2="250" y2="343" class="cls-div"/>
+    <text x="12" y="358" class="cls-sec-title">Relationships (Eloquent)</text>
+    <line x1="0" y1="364" x2="250" y2="364" class="cls-div"/>
+    <text x="12" y="380" class="cls-rel-meth">+ evaluasisAsAslab(): HasMany</text>
+    <text x="12" y="397" class="cls-rel-meth">+ evaluasisAsEvaluator(): HasMany</text>
+    <text x="12" y="414" class="cls-rel-meth">+ semesters(): BelongsToMany</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- 2. MODEL: Semester                                           -->
+  <!-- ============================================================ -->
+  <g id="class-semester" transform="translate(390, 80)">
+    <rect width="250" height="385" rx="8" class="cls-box" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.05))"/>
+    <path d="M 0,8 Q 0,0 8,0 L 242,0 Q 250,0 250,8 L 250,42 L 0,42 Z" class="cls-header-model"/>
+    <text x="125" y="16" class="cls-title-type">«Eloquent Model»</text>
+    <text x="125" y="34" class="cls-title-name">Semester</text>
+
+    <!-- Attributes -->
+    <text x="12" y="58" class="cls-sec-title">Attributes (Fillable)</text>
+    <line x1="0" y1="64" x2="250" y2="64" class="cls-div"/>
+    <text x="12" y="80" class="cls-prop">+ id: bigint (PK)</text>
+    <text x="12" y="97" class="cls-prop">+ nama_semester: string</text>
+    <text x="12" y="114" class="cls-prop">+ status: enum(aktif,tidak_aktif)</text>
+    <text x="12" y="131" class="cls-prop-sub"># timestamps</text>
+
+    <!-- Static & Helper Methods -->
+    <line x1="0" y1="145" x2="250" y2="145" class="cls-div"/>
+    <text x="12" y="160" class="cls-sec-title">Context &amp; Sync Methods</text>
+    <line x1="0" y1="166" x2="250" y2="166" class="cls-div"/>
+    <text x="12" y="183" class="cls-meth">+ {static} current(): ?self</text>
+    <text x="12" y="200" class="cls-meth">+ {static} currentEditable(): self</text>
+    <text x="12" y="217" class="cls-meth">+ {static} syncAllAslabsToActive()</text>
+    <text x="12" y="234" class="cls-meth">+ ensureAllAslabsRegistered()</text>
+
+    <!-- Relations -->
+    <line x1="0" y1="248" x2="250" y2="248" class="cls-div"/>
+    <text x="12" y="263" class="cls-sec-title">Relationships (Eloquent)</text>
+    <line x1="0" y1="269" x2="250" y2="269" class="cls-div"/>
+    <text x="12" y="287" class="cls-rel-meth">+ aslabs(): BelongsToMany</text>
+    <text x="12" y="304" class="cls-rel-meth">+ activeAslabs(): BelongsToMany</text>
+    <text x="12" y="321" class="cls-rel-meth">+ kriterias(): HasMany</text>
+    <text x="12" y="338" class="cls-rel-meth">+ evaluasis(): HasMany</text>
+
+    <rect x="12" y="352" width="226" height="22" class="badge-bg"/>
+    <text x="125" y="367" text-anchor="middle" font-size="10" fill="#475569" font-family="system-ui, sans-serif">Master Owner of Evaluasi &amp; Kriteria</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- 3. MODEL: Kriteria                                           -->
+  <!-- ============================================================ -->
+  <g id="class-kriteria" transform="translate(750, 80)">
+    <rect width="240" height="280" rx="8" class="cls-box" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.05))"/>
+    <path d="M 0,8 Q 0,0 8,0 L 232,0 Q 240,0 240,8 L 240,42 L 0,42 Z" class="cls-header-model"/>
+    <text x="120" y="16" class="cls-title-type">«Eloquent Model»</text>
+    <text x="120" y="34" class="cls-title-name">Kriteria</text>
+
+    <text x="12" y="58" class="cls-sec-title">Attributes (Fillable)</text>
+    <line x1="0" y1="64" x2="240" y2="64" class="cls-div"/>
+    <text x="12" y="80" class="cls-prop">+ id: bigint (PK)</text>
+    <text x="12" y="97" class="cls-prop">+ semester_id: bigint (FK)</text>
+    <text x="12" y="114" class="cls-prop">+ nama_kriteria: string</text>
+    <text x="12" y="131" class="cls-prop">+ persentase_kriteria: int</text>
+    <text x="12" y="148" class="cls-prop">+ bobot_cf: tinyint (def: 60)</text>
+    <text x="12" y="165" class="cls-prop">+ bobot_sf: tinyint (def: 40)</text>
+    <text x="12" y="182" class="cls-prop-sub"># timestamps</text>
+
+    <line x1="0" y1="194" x2="240" y2="194" class="cls-div"/>
+    <text x="12" y="209" class="cls-sec-title">Relationships (Eloquent)</text>
+    <line x1="0" y1="215" x2="240" y2="215" class="cls-div"/>
+    <text x="12" y="233" class="cls-rel-meth">+ subKriterias(): HasMany</text>
+    <text x="12" y="250" class="cls-rel-meth">+ semester(): BelongsTo</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- 4. MODEL: SubKriteria                                        -->
+  <!-- ============================================================ -->
+  <g id="class-subkriteria" transform="translate(750, 400)">
+    <rect width="240" height="260" rx="8" class="cls-box" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.05))"/>
+    <path d="M 0,8 Q 0,0 8,0 L 232,0 Q 240,0 240,8 L 240,42 L 0,42 Z" class="cls-header-model"/>
+    <text x="120" y="16" class="cls-title-type">«Eloquent Model»</text>
+    <text x="120" y="34" class="cls-title-name">SubKriteria</text>
+
+    <text x="12" y="58" class="cls-sec-title">Attributes (Fillable)</text>
+    <line x1="0" y1="64" x2="240" y2="64" class="cls-div"/>
+    <text x="12" y="80" class="cls-prop">+ id: bigint (PK)</text>
+    <text x="12" y="97" class="cls-prop">+ kriteria_id: bigint (FK)</text>
+    <text x="12" y="114" class="cls-prop">+ nama_sub: string</text>
+    <text x="12" y="131" class="cls-prop">+ nilai_target: int|decimal</text>
+    <text x="12" y="148" class="cls-prop">+ jenis: enum(core,secondary)</text>
+    <text x="12" y="165" class="cls-prop-sub"># timestamps</text>
+
+    <line x1="0" y1="176" x2="240" y2="176" class="cls-div"/>
+    <text x="12" y="191" class="cls-sec-title">Relationships (Eloquent)</text>
+    <line x1="0" y1="197" x2="240" y2="197" class="cls-div"/>
+    <text x="12" y="214" class="cls-rel-meth">+ kriteria(): BelongsTo</text>
+    <text x="12" y="231" class="cls-rel-meth">+ rubrikPenilaians(): HasMany</text>
+    <text x="12" y="248" class="cls-rel-meth">+ evaluasis(): HasMany</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- 5. MODEL: RubrikPenilaian                                    -->
+  <!-- ============================================================ -->
+  <g id="class-rubrik" transform="translate(1040, 400)">
+    <rect width="210" height="210" rx="8" class="cls-box" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.05))"/>
+    <path d="M 0,8 Q 0,0 8,0 L 202,0 Q 210,0 210,8 L 210,42 L 0,42 Z" class="cls-header-model"/>
+    <text x="105" y="16" class="cls-title-type">«Eloquent Model»</text>
+    <text x="105" y="34" class="cls-title-name">RubrikPenilaian</text>
+
+    <text x="12" y="58" class="cls-sec-title">Attributes (Fillable)</text>
+    <line x1="0" y1="64" x2="210" y2="64" class="cls-div"/>
+    <text x="12" y="80" class="cls-prop">+ id: bigint (PK)</text>
+    <text x="12" y="97" class="cls-prop">+ sub_kriteria_id: bigint (FK)</text>
+    <text x="12" y="114" class="cls-prop">+ skor: tinyint (1-5)</text>
+    <text x="12" y="131" class="cls-prop">+ deskripsi: text</text>
+    <text x="12" y="148" class="cls-prop-sub"># timestamps</text>
+
+    <line x1="0" y1="159" x2="210" y2="159" class="cls-div"/>
+    <text x="12" y="174" class="cls-sec-title">Relationships</text>
+    <line x1="0" y1="180" x2="210" y2="180" class="cls-div"/>
+    <text x="12" y="196" class="cls-rel-meth">+ subKriteria(): BelongsTo</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- 6. MODEL: Evaluasi (Transaksi Penilaian)                     -->
+  <!-- ============================================================ -->
+  <g id="class-evaluasi" transform="translate(390, 520)">
+    <rect width="260" height="340" rx="8" class="cls-box" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.05))"/>
+    <path d="M 0,8 Q 0,0 8,0 L 252,0 Q 260,0 260,8 L 260,42 L 0,42 Z" class="cls-header-model"/>
+    <text x="130" y="16" class="cls-title-type">«Transactional Model»</text>
+    <text x="130" y="34" class="cls-title-name">Evaluasi</text>
+
+    <text x="12" y="58" class="cls-sec-title">Attributes (Fillable)</text>
+    <line x1="0" y1="64" x2="260" y2="64" class="cls-div"/>
+    <text x="12" y="80" class="cls-prop">+ id: bigint (PK)</text>
+    <text x="12" y="97" class="cls-prop">+ evaluator_id: bigint (FK)</text>
+    <text x="12" y="114" class="cls-prop">+ aslab_id: bigint (FK)</text>
+    <text x="12" y="131" class="cls-prop">+ sub_kriteria_id: bigint (FK)</text>
+    <text x="12" y="148" class="cls-prop">+ semester_id: bigint (FK)</text>
+    <text x="12" y="165" class="cls-prop">+ nilai_aktual: decimal</text>
+    <text x="12" y="182" class="cls-prop-sub"># timestamps</text>
+
+    <rect x="8" y="192" width="244" height="20" fill="#fef2f2" stroke="#fecaca" stroke-width="1" rx="4"/>
+    <text x="130" y="206" text-anchor="middle" font-size="9" fill="#b91c1c" font-family="system-ui, sans-serif" font-weight="700">UNQ: [aslab_id, sub_kriteria_id, semester_id]</text>
+
+    <line x1="0" y1="220" x2="260" y2="220" class="cls-div"/>
+    <text x="12" y="235" class="cls-sec-title">Relationships (Eloquent)</text>
+    <line x1="0" y1="241" x2="260" y2="241" class="cls-div"/>
+    <text x="12" y="258" class="cls-rel-meth">+ evaluator(): BelongsTo(User)</text>
+    <text x="12" y="275" class="cls-rel-meth">+ aslab(): BelongsTo(User)</text>
+    <text x="12" y="292" class="cls-rel-meth">+ subKriteria(): BelongsTo(SubKriteria)</text>
+    <text x="12" y="309" class="cls-rel-meth">+ semester(): BelongsTo(Semester)</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- 7. SERVICE: ProfileMatchingService                           -->
+  <!-- ============================================================ -->
+  <g id="class-service" transform="translate(30, 550)">
+    <rect width="270" height="310" rx="8" class="cls-box" stroke="#7c3aed" stroke-width="2" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.05))"/>
+    <path d="M 0,8 Q 0,0 8,0 L 262,0 Q 270,0 270,8 L 270,42 L 0,42 Z" class="cls-header-service"/>
+    <text x="135" y="16" class="cls-title-type">«SPK Service Layer»</text>
+    <text x="135" y="34" class="cls-title-name">ProfileMatchingService</text>
+
+    <text x="12" y="58" class="cls-sec-title">Algoritma &amp; Kalkulasi</text>
+    <line x1="0" y1="64" x2="270" y2="64" class="cls-div"/>
+    <text x="12" y="80" class="cls-meth">- getBobotGap(gap: int): float</text>
+    <text x="12" y="97" class="cls-meth">+ calculate(semesterId?): array</text>
+    <text x="24" y="113" font-size="9.5" fill="#64748b" font-family="'Consolas', monospace">↳ GAP = aktual - target</text>
+    <text x="24" y="127" font-size="9.5" fill="#64748b" font-family="'Consolas', monospace">↳ NCF = rata-rata bobot CF</text>
+    <text x="24" y="141" font-size="9.5" fill="#64748b" font-family="'Consolas', monospace">↳ NSF = rata-rata bobot SF</text>
+    <text x="24" y="155" font-size="9.5" fill="#64748b" font-family="'Consolas', monospace">↳ Total = %CF×NCF + %SF×NSF</text>
+    <text x="24" y="169" font-size="9.5" fill="#64748b" font-family="'Consolas', monospace">↳ GrandTotal = Σ(Total×%Kriteria)</text>
+
+    <line x1="0" y1="180" x2="270" y2="180" class="cls-div"/>
+    <text x="12" y="195" class="cls-sec-title">Decision Output Methods</text>
+    <line x1="0" y1="201" x2="270" y2="201" class="cls-div"/>
+    <text x="12" y="218" class="cls-meth">+ {static} getKategori(score): ?str</text>
+    <text x="24" y="234" font-size="9.5" fill="#64748b" font-family="'Consolas', monospace">↳ ≥4.00 → Pelatihan</text>
+    <text x="24" y="248" font-size="9.5" fill="#64748b" font-family="'Consolas', monospace">↳ &lt;4.00 → Pengembangan</text>
+    <text x="12" y="270" class="cls-meth">+ getDashboardData(id?): array</text>
+    <text x="24" y="286" font-size="9.5" fill="#64748b" font-family="'Consolas', monospace">↳ trend, ranking, avg, topScores</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- RELATIONSHIP CONNECTORS                                      -->
+  <!-- ============================================================ -->
+
+  <!-- User ↔ Semester (M:N via aslab_semester) -->
+  <path d="M 280,230 L 390,230" class="rel-line-dashed" marker-end="url(#arrow-purple)"/>
+  <rect x="305" y="216" width="60" height="16" class="badge-bg"/>
+  <text x="335" y="228" text-anchor="middle" class="rel-text">M : N</text>
+
+  <!-- Semester → Kriteria (1:N) -->
+  <path d="M 640,180 L 750,180" class="rel-line" marker-end="url(#arrow-blue)"/>
+  <text x="650" y="172" class="rel-text">1</text>
+  <text x="735" y="172" class="rel-text">N</text>
+
+  <!-- Kriteria → SubKriteria (1:N) -->
+  <path d="M 870,360 L 870,400" class="rel-line" marker-end="url(#arrow-blue)"/>
+  <text x="880" y="380" class="rel-text">1 : N</text>
+
+  <!-- SubKriteria → RubrikPenilaian (1:N) -->
+  <path d="M 990,470 L 1040,470" class="rel-line" marker-end="url(#arrow-blue)"/>
+  <text x="998" y="462" class="rel-text">1</text>
+  <text x="1025" y="462" class="rel-text">N</text>
+
+  <!-- Semester → Evaluasi (1:N) -->
+  <path d="M 515,465 L 515,520" class="rel-line" marker-end="url(#arrow-blue)"/>
+  <text x="525" y="495" class="rel-text">1 : N</text>
+
+  <!-- SubKriteria → Evaluasi (1:N) -->
+  <path d="M 750,560 L 650,560" class="rel-line" marker-end="url(#arrow-blue)"/>
+  <text x="730" y="552" class="rel-text">1</text>
+  <text x="660" y="552" class="rel-text">N</text>
+
+  <!-- User → Evaluasi (1:N as aslab) -->
+  <path d="M 280,440 Q 340,440 340,650 L 390,650" class="rel-line-muted" marker-end="url(#arrow-gray)"/>
+  <text x="305" y="550" class="rel-text">aslab (1:N)</text>
+
+  <!-- Service → Evaluasi / Models (Usage) -->
+  <path d="M 300,700 L 390,700" class="rel-line-dashed" marker-end="url(#arrow-purple)"/>
+  <text x="325" y="692" class="rel-text">«uses»</text>
+
+</svg>
