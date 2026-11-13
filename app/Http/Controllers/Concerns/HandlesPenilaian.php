@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Concerns;
 
+use App\Imports\EvaluasiImport;
 use App\Models\Evaluasi;
 use App\Models\Kriteria;
 use App\Models\Semester;
@@ -9,6 +10,7 @@ use App\Models\SubKriteria;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 trait HandlesPenilaian
 {
@@ -25,7 +27,6 @@ trait HandlesPenilaian
     public function index()
     {
         $sem = $this->semester();
-
         $aslabs = collect($this->pmService->calculate($sem->id))
             ->map(function ($r) {
                 $r['aslab']->status_penilaian = $r['is_evaluated'] ? 'Sudah Dinilai' : 'Belum Dinilai';

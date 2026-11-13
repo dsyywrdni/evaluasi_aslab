@@ -28,6 +28,8 @@ Route::middleware(['auth', 'semester'])->group(function () {
 
         // Data asisten
         Route::resource('asisten', AsistenController::class)->except('show');
+        Route::get('/asisten/import', [AsistenController::class, 'importExcelGet'])->name('asisten.import_get');
+        Route::post('/asisten/import', [AsistenController::class, 'importExcelPost'])->name('asisten.import_post');
         Route::patch('asisten/{id}/status', [AsistenController::class, 'updateStatus'])->name('asisten.status');
 
         // Kriteria & sub-kriteria

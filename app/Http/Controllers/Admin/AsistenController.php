@@ -3,17 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\AslabImport;
 use App\Models\Semester;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AsistenController extends Controller
 {
     public function index()
     {
         $sem = Semester::current();
-
+        // Excel::import(new AslabImport, "aslab.xlsx");
         // Pastikan seluruh asisten dengan role 'aslab' terdaftar secara otomatis ke semester aktif
         if ($sem && $sem->status === 'aktif') {
             $sem->ensureAllAslabsRegistered();
@@ -155,5 +157,18 @@ class AsistenController extends Controller
         ]);
 
         return back()->with('success', "Status {$aslab->name} pada {$sem->nama_semester} berhasil diubah.");
+    }
+    public function importExcelGet(Request $request){
+        return view("admin.asisten.import");
+    }
+    public function importExcelPost(Request $request){
+        try {
+            Excel::import(new AslabImport, $request->excel_file);
+            return redirect()->route("admin.asisten.index");
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect()->back();
+
+        }
     }
 }
