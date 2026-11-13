@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Kriteria;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class KriteriaImport implements ToModel
