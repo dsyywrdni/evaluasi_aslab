@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\KriteriaImport;
 use App\Models\Kriteria;
 use App\Models\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KriteriaController extends Controller
 {
@@ -87,5 +89,31 @@ class KriteriaController extends Controller
         $this->find($id)->delete();
 
         return redirect()->route('admin.kriteria.index')->with('success', 'Kriteria berhasil dihapus.');
+    }
+
+    public function importExcelGet(Request $request)
+    {
+        return view('admin.kriteria.import');
+    }
+
+    public function importExcelPost(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimes:xlsx,xls,csv|max:5120',
+        ], [
+            'excel_file.required' => 'File Excel wajib diunggah.',
+            'excel_file.mimes'    => 'File harus berformat .xlsx, .xls, atau .csv.',
+            'excel_file.max'      => 'Ukuran file maksimal 5 MB.',
+        ]);
+
+        try {
+            Excel::import(new KriteriaImport, $request->file('excel_file'));
+
+            return redirect()->route('admin.kriteria.index')
+                ->with('success', 'Kriteria, sub-kriteria, dan rubrik penilaian berhasil diimpor.');
+        } catch (\Throwable $th) {
+            return redirect()->back()
+                ->withErrors(['error' => 'Gagal mengimpor file: ' . $th->getMessage()]);
+        }
     }
 }

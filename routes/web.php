@@ -32,6 +32,8 @@ Route::middleware(['auth', 'semester'])->group(function () {
         Route::post('/asisten/import', [AsistenController::class, 'importExcelPost'])->name('asisten.import_post');
         Route::patch('asisten/{id}/status', [AsistenController::class, 'updateStatus'])->name('asisten.status');
 
+        Route::get('/kriteria/import', [KriteriaController::class, 'importExcelGet'])->name('kriteria.import_get');
+        Route::post('/kriteria/import', [KriteriaController::class, 'importExcelPost'])->name('kriteria.import_post');
         // Kriteria & sub-kriteria
         Route::resource('kriteria', KriteriaController::class);
         Route::post('kriteria/{kriteria_id}/sub', [SubKriteriaController::class, 'store'])->name('sub_kriteria.store');
@@ -60,5 +62,7 @@ Route::middleware(['auth', 'semester'])->group(function () {
         Route::delete('/penilaian/{aslab_id}', [KalabPenilaian::class, 'destroy'])->name('penilaian.destroy');
         Route::get('/penilaian/hasil', [KalabPenilaian::class, 'hasil'])->name('penilaian.hasil');
         Route::get('/penilaian/detail/{aslab_id}', [KalabPenilaian::class, 'detail'])->name('penilaian.detail');
+        Route::get('/penilaian/import', [KalabPenilaian::class, 'importGet'])->name('penilaian.import_get');
+        Route::post('/penilaian/import', [KalabPenilaian::class, 'importPost'])->name('penilaian.import_post');
     });
 });

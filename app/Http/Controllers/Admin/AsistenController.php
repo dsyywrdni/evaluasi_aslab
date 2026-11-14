@@ -158,17 +158,32 @@ class AsistenController extends Controller
 
         return back()->with('success', "Status {$aslab->name} pada {$sem->nama_semester} berhasil diubah.");
     }
-    public function importExcelGet(Request $request){
-        return view("admin.asisten.import");
+    
+    public function importExcelGet(Request $request)
+    {
+        return view('admin.asisten.import');
     }
-    public function importExcelPost(Request $request){
-        try {
-            Excel::import(new AslabImport, $request->excel_file);
-            return redirect()->route("admin.asisten.index");
-        } catch (\Throwable $th) {
-            //throw $th;
-            return redirect()->back();
 
+    public function importExcelPost(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimes:xlsx,xls,csv|max:5120',
+        ], [
+            'excel_file.required' => 'File Excel wajib diunggah.',
+            'excel_file.mimes'    => 'File harus berformat .xlsx, .xls, atau .csv.',
+            'excel_file.max'      => 'Ukuran file maksimal 5 MB.',
+        ]);
+
+        $sem = Semester::currentEditable();
+
+        try {
+            Excel::import(new AslabImport($sem->id), $request->file('excel_file'));
+
+            return redirect()->route('admin.asisten.index')
+                ->with('success', 'Data asisten berhasil diimpor dan didaftarkan ke semester aktif.');
+        } catch (\Throwable $th) {
+            return redirect()->back()
+                ->withErrors(['error' => 'Gagal mengimpor file: ' . $th->getMessage()]);
         }
     }
 }

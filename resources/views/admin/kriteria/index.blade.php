@@ -13,6 +13,11 @@
                 <i data-lucide="plus-circle" class="w-4 h-4"></i>
                 Tambah Kriteria
             </a>
+            <a href="{{ route('admin.kriteria.import_get') }}"
+                style="display:inline-flex;align-items:center;gap:7px;background:#6d28d9;color:#fff;font-family:'Poppins',sans-serif;font-weight:700;font-size:13px;padding:10px 18px;border-radius:11px;text-decoration:none;box-shadow:0 4px 14px rgba(109,40,217,.25);white-space:nowrap;transition:background .15s;"
+                onmouseover="this.style.background='#21b653'" onmouseout="this.style.background='#28d957'">
+                <i data-lucide="user-plus" style="width:15px;height:15px;"></i> Import Kriteria
+            </a>
         @endunless
     </div>
 

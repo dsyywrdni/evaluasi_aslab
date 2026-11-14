@@ -142,4 +142,35 @@ trait HandlesPenilaian
 
         return view('admin.penilaian.detail', compact('aslab', 'myResult'));
     }
+
+    public function importGet()
+    {
+        return view("{$this->prefix()}.penilaian.import");
+    }
+
+    public function importPost(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimes:xlsx,xls,csv|max:5120',
+        ], [
+            'excel_file.required' => 'File Excel wajib diunggah.',
+            'excel_file.mimes'    => 'File harus berformat .xlsx, .xls, atau .csv.',
+            'excel_file.max'      => 'Ukuran file maksimal 5 MB.',
+        ]);
+
+        $sem = Semester::currentEditable();
+
+        try {
+            Excel::import(
+                new EvaluasiImport(Auth::id(), $sem->id),
+                $request->file('excel_file')
+            );
+
+            return redirect()->route("{$this->prefix()}.penilaian.index")
+                ->with('success', 'Data evaluasi berhasil diimpor dari file Excel.');
+        } catch (\Throwable $th) {
+            return redirect()->back()
+                ->withErrors(['error' => 'Gagal mengimpor file: ' . $th->getMessage()]);
+        }
+    }
 }

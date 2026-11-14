@@ -103,9 +103,6 @@ class SubKriteriaController extends Controller
         return back()->with('success', 'Sub-Kriteria berhasil dihapus.');
     }
 
-    /**
-     * Simpan / update rubrik penilaian (skor 1–5) untuk satu sub-kriteria.
-     */
     public function storeRubrik(Request $request, $sub_id)
     {
         $sem = Semester::currentEditable();

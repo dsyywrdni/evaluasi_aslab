@@ -11,7 +11,7 @@
             </p>
         </div>
 
-        <!-- Indikator Rekap Jumlah Asisten -->
+        <!-- Indikator Rekap & Tombol Import -->
         <div class="flex flex-wrap items-center gap-2">
             <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-50 text-purple-800 text-xs font-bold rounded-xl border border-purple-100">
                 <i data-lucide="users" class="w-3.5 h-3.5 text-purple-600"></i>
@@ -25,6 +25,14 @@
                 <span class="w-2 h-2 rounded-full bg-slate-400"></span>
                 Belum: {{ $aslabs->where('status_penilaian', 'Belum Dinilai')->count() }}
             </span>
+
+            @unless($isArchive)
+            <a href="{{ route('kalab.penilaian.import_get') }}"
+               class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold rounded-xl shadow-sm transition">
+                <i data-lucide="file-up" class="w-3.5 h-3.5"></i>
+                Import Nilai
+            </a>
+            @endunless
         </div>
     </div>
 
