@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Concerns;
 
+use App\Exports\EvaluasiExport;
 use App\Imports\EvaluasiImport;
 use App\Models\Evaluasi;
 use App\Models\Kriteria;
@@ -172,5 +173,22 @@ trait HandlesPenilaian
             return redirect()->back()
                 ->withErrors(['error' => 'Gagal mengimpor file: ' . $th->getMessage()]);
         }
+    }
+    public function export(Request $request){
+        $activeSemester = Semester::where("status", "aktif")->first();
+        $kriterias = Kriteria::with("subKriterias")->where("semester_id", $activeSemester->id)->get();
+        $headingRow = ["kode_asisten"];
+
+        foreach ($kriterias as $key => $value) {
+            # code...
+            foreach ($value->subKriterias as $key1 => $sk) {
+                # code...
+                $subKritName = strtolower(trim($sk->nama_sub));
+                $subKritName = preg_replace('/\s+/', '_', $subKritName);
+                array_push($headingRow, $subKritName);
+            }
+        }
+
+        return Excel::download(new EvaluasiExport($headingRow), 'format_evaluasi.xlsx');
     }
 }

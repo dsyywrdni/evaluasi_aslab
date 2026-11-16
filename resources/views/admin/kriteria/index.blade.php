@@ -61,7 +61,17 @@
                     </div>
 
                     @unless($isArchive)
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-end  gap-2">
+                            <div>
+                                <form action="{{ route('admin.sub_kriteria.import', $kriteria->id) }}" enctype="multipart/form-data" method="post">
+                                    @csrf
+                                    <label class="block mb-2.5 text-sm font-medium text-heading" for="small_size">Upload Excel Sub-kriteria</label>
+                                    <input class="cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs placeholder:text-body" name="excel_file" accept=".xlsx, .excel, .csv " id="small_size" type="file">
+                                     <button type="submit" class="flex items-center gap-1.5 bg-purple-700 hover:bg-purple-800 text-white font-semibold text-xs px-3.5 py-2 rounded-xl shadow-sm transition" style="width:100%;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:6px;">
+                                        <i data-lucide="upload" style="width:15px;height:15px;"></i> Import Sub-kriteria
+                                    </button>
+                                </form>
+                            </div>
                             <a href="{{ route('admin.kriteria.show', $kriteria->id) }}"
                                class="flex items-center gap-1.5 bg-purple-700 hover:bg-purple-800 text-white font-semibold text-xs px-3.5 py-2 rounded-xl shadow-sm transition">
                                 <i data-lucide="layers" class="w-3.5 h-3.5"></i>

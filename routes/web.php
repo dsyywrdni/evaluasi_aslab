@@ -37,6 +37,7 @@ Route::middleware(['auth', 'semester'])->group(function () {
         // Kriteria & sub-kriteria
         Route::resource('kriteria', KriteriaController::class);
         Route::post('kriteria/{kriteria_id}/sub', [SubKriteriaController::class, 'store'])->name('sub_kriteria.store');
+        Route::post('sub/import/{id}', [SubKriteriaController::class, 'import'])->name('sub_kriteria.import');
         Route::put('sub/{id}', [SubKriteriaController::class, 'update'])->name('sub_kriteria.update');
         Route::delete('sub/{id}', [SubKriteriaController::class, 'destroy'])->name('sub_kriteria.destroy');
         Route::post('sub/{sub_id}/rubrik', [SubKriteriaController::class, 'storeRubrik'])->name('sub_kriteria.rubrik.store');
@@ -53,7 +54,7 @@ Route::middleware(['auth', 'semester'])->group(function () {
     });
 
     // ================= ROLE 2: KALAB =================
-    Route::middleware('role:kalab')->prefix('kalab')->name('kalab.')->group(function () {
+    Route::prefix('kalab')->name('kalab.')->group(function () {
         Route::get('/dashboard', [KalabDashboard::class, 'index'])->name('dashboard');
 
         Route::get('/penilaian', [KalabPenilaian::class, 'index'])->name('penilaian.index');
@@ -63,6 +64,7 @@ Route::middleware(['auth', 'semester'])->group(function () {
         Route::get('/penilaian/hasil', [KalabPenilaian::class, 'hasil'])->name('penilaian.hasil');
         Route::get('/penilaian/detail/{aslab_id}', [KalabPenilaian::class, 'detail'])->name('penilaian.detail');
         Route::get('/penilaian/import', [KalabPenilaian::class, 'importGet'])->name('penilaian.import_get');
+        Route::get('/penilaian/export', [KalabPenilaian::class, 'export'])->name('penilaian.export');
         Route::post('/penilaian/import', [KalabPenilaian::class, 'importPost'])->name('penilaian.import_post');
     });
 });

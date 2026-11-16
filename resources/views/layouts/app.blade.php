@@ -145,6 +145,14 @@
             </a>
 
             <div style="font-size:9px;font-weight:700;color:#7c3aed;letter-spacing:.1em;text-transform:uppercase;padding:12px 12px 6px;">Master Data</div>
+            <a href="{{ route('kalab.penilaian.index') }}"
+               class="sidebar-link {{ request()->routeIs('kalab.penilaian.index','kalab.penilaian.create') ? 'active' : '' }}">
+                <i data-lucide="clipboard-pen" class="icon"></i> Input Penilaian
+            </a>
+            <a href="{{ route('kalab.penilaian.hasil') }}"
+               class="sidebar-link {{ request()->routeIs('kalab.penilaian.hasil','kalab.penilaian.detail') ? 'active' : '' }}">
+                <i data-lucide="bar-chart-3" class="icon"></i> Hasil Rangking
+            </a>
 
             <a href="{{ route('admin.asisten.index') }}"
                class="sidebar-link {{ request()->routeIs('admin.asisten.*') ? 'active' : '' }}">

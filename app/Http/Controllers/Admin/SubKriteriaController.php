@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\SubKriteriaImport;
 use App\Models\Kriteria;
 use App\Models\RubrikPenilaian;
 use App\Models\Semester;
 use App\Models\SubKriteria;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SubKriteriaController extends Controller
 {
@@ -134,5 +136,26 @@ class SubKriteriaController extends Controller
 
         return back()->with('success', 'Rubrik penilaian berhasil disimpan.')
                      ->with('opened_sub_id', $sub->id);
+    }
+     public function import(Request $request, $id)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimes:xlsx,xls,csv|max:5120',
+        ], [
+            'excel_file.required' => 'File Excel wajib diunggah.',
+            'excel_file.mimes'    => 'File harus berformat .xlsx, .xls, atau .csv.',
+            'excel_file.max'      => 'Ukuran file maksimal 5 MB.',
+        ]);
+
+        try {
+
+            Excel::import(new SubKriteriaImport($id), $request->file('excel_file'));
+
+            return redirect()->route('admin.kriteria.index')
+                ->with('success', 'Kriteria, sub-kriteria, dan rubrik penilaian berhasil diimpor.');
+        } catch (\Throwable $th) {
+            return redirect()->back()
+                ->withErrors(['error' => 'Gagal mengimpor file: ' . $th->getMessage()]);
+        }
     }
 }

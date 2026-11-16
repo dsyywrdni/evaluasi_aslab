@@ -27,6 +27,11 @@
             </span>
 
             @unless($isArchive)
+            <a href="{{ route('kalab.penilaian.export') }}"
+               class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold rounded-xl shadow-sm transition">
+                <i data-lucide="file-up" class="w-3.5 h-3.5"></i>
+                Template Evaluasi Sub-kriteria
+            </a>
             <a href="{{ route('kalab.penilaian.import_get') }}"
                class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold rounded-xl shadow-sm transition">
                 <i data-lucide="file-up" class="w-3.5 h-3.5"></i>

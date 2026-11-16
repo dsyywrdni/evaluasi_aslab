@@ -107,6 +107,7 @@ class KriteriaController extends Controller
         ]);
 
         try {
+
             Excel::import(new KriteriaImport, $request->file('excel_file'));
 
             return redirect()->route('admin.kriteria.index')

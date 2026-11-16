@@ -16,7 +16,6 @@ class EvaluasiImport implements ToModel, WithHeadingRow
     protected int $evaluatorId;
     protected int $semesterId;
 
-    /** Cache sub-kriteria agar tidak query per baris */
     protected ?array $subKriteriaMap = null;
 
     public function __construct(int $evaluatorId, int $semesterId)
@@ -25,19 +24,12 @@ class EvaluasiImport implements ToModel, WithHeadingRow
         $this->semesterId  = $semesterId;
     }
 
-    /**
-     * Bangun map: nama_sub (dinormalisasi sama seperti WithHeadingRow) => SubKriteria
-     * WithHeadingRow mengubah spasi → underscore dan lowercase.
-     * Hanya ambil sub-kriteria yang ada di semester ini.
-     */
     protected function getSubKriteriaMap(): array
     {
         if ($this->subKriteriaMap === null) {
             $this->subKriteriaMap = SubKriteria::whereHas('kriteria', function ($q) {
                 $q->where('semester_id', $this->semesterId);
             })->get()->keyBy(function ($s) {
-                // Normalisasi sama persis dengan WithHeadingRow:
-                // lowercase + trim + spasi → underscore + hapus karakter non-alfanumerik kecuali underscore
                 $normalized = strtolower(trim($s->nama_sub));
                 $normalized = preg_replace('/\s+/', '_', $normalized);
                 $normalized = preg_replace('/[^a-z0-9_]/', '', $normalized);
@@ -55,10 +47,8 @@ class EvaluasiImport implements ToModel, WithHeadingRow
             return null;
         }
 
-        // Cari user berdasarkan kode_asisten
         $user = User::where('kode_asisten', $kodeAsisten)->where('role', 'aslab')->first();
 
-        // Jika tidak ditemukan, buat user baru dengan data minimal
         if (!$user) {
             $user = User::create([
                 'name'         => 'Asisten ' . $kodeAsisten,
@@ -86,13 +76,10 @@ class EvaluasiImport implements ToModel, WithHeadingRow
             if ($header === 'kode_asisten' || $nilai === null || $nilai === '') {
                 continue;
             }
-
-            // Header dari WithHeadingRow sudah dinormalisasi (lowercase, spasi→underscore)
-            // Langsung pakai sebagai key tanpa transformasi tambahan
             $key = (string) $header;
 
             if (!isset($subKriteriaMap[$key])) {
-                continue; // Kolom tidak cocok dengan nama sub-kriteria manapun, skip
+                continue;
             }
 
             $subK = $subKriteriaMap[$key];
