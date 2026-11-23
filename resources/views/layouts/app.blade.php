@@ -107,18 +107,59 @@
         .data-table tbody tr { border-bottom:1px solid #f1f5f9; transition:background .12s; }
         .data-table tbody tr:hover { background:#faf5ff; }
         .data-table tbody td { padding:13px 16px; color:#334155; vertical-align:middle; }
+
+        aside{
+            height: 100%;
+            width: 65px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+        }
+        nav{
+            overflow-x: hidden;
+        }
+        .link-text{
+            opacity: 0;
+            transition: opacity .5s;
+        }
+        #main {
+            transition: margin-left .5s;
+            margin-left: 70px;
+        }
+        @media screen and (max-width: 792px) {
+            #header{
+                flex-direction: column;
+                padding-block: 1.3rem !important;
+                align-items: start !important;
+                gap: .2rem !important;
+            }
+            #status-semester{
+                flex-direction: column;
+                align-items: start !important;
+                margin-top: .3rem !important;
+            }
+            aside{
+                position: absolute;
+            }
+        }
+
     </style>
+    
 </head>
 <body class="flex h-screen overflow-hidden">
 
     {{-- =========== SIDEBAR =========== --}}
-    <aside style="width:240px; background:linear-gradient(175deg,#3b0764 0%,#4c1d95 60%,#2e1065 100%); display:flex; flex-direction:column; flex-shrink:0; z-index:30; box-shadow:4px 0 24px rgba(109,40,217,.18);">
+    <aside id="sidebar" style="background:linear-gradient(175deg,#3b0764 0%,#4c1d95 60%,#2e1065 100%); display:flex; flex-direction:column; flex-shrink:0; z-index:30; box-shadow:4px 0 24px rgba(109,40,217,.18);">
 
         {{-- Brand --}}
-        <div style="padding:20px 16px 16px; border-bottom:1px solid rgba(196,181,253,.15);">
+        <div style="padding:20px 12px 16px; border-bottom:1px solid rgba(196,181,253,.15);">
             <div style="display:flex; align-items:center; gap:10px;">
                 <div style="width:42px;height:42px;border-radius:12px;background:#fff;padding:4px;flex-shrink:0;border:1.5px solid rgba(196,181,253,.3);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.12);">
-                    <img src="{{ asset('images/logo-labcom.png') }}" alt="Logo" style="width:100%;height:100%;object-fit:contain;">
+                    <img src="{{ asset('images/logo-labcom.png') }}" alt="Logo" style="width:100%;height:100%;object-fit:contain; cursor:pointer" onclick="handleNav()">
                 </div>
                 <div>
                     <div style="font-size:13px;font-weight:800;color:#ede9fe;letter-spacing:.04em;line-height:1.2;">LABCOM WICIDA</div>
@@ -127,44 +168,43 @@
             </div>
         </div>
 
-        {{-- Nav --}}
         <nav style="padding:12px 10px; flex:1; overflow-y:auto;">
             @if(Auth::check())
             @php $user = Auth::user(); @endphp
 
             @if($user->role === 'admin')
-            <div style="font-size:9px;font-weight:700;color:#7c3aed;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px 6px;">Menu Admin</div>
+            <div style="font-size:9px;font-weight:700;color:#7c3aed; width: 100%; text-align: center;">Menu Admin</div>
 
             <a href="{{ route('admin.dashboard') }}"
                class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <i data-lucide="layout-dashboard" class="icon"></i> Dashboard
+                <i data-lucide="layout-dashboard" class="icon"></i> <span class="link-text">Dashboard</span>
             </a>
             <a href="{{ route('admin.penilaian.hasil') }}"
                class="sidebar-link {{ request()->routeIs('admin.penilaian.*') ? 'active' : '' }}">
-                <i data-lucide="award" class="icon"></i> Hasil & Peringkat
+                <i data-lucide="award" class="icon"></i> <span class="link-text">Hasil & Peringkat</span>
             </a>
 
-            <div style="font-size:9px;font-weight:700;color:#7c3aed;letter-spacing:.1em;text-transform:uppercase;padding:12px 12px 6px;">Master Data</div>
+            <div style="font-size:9px;font-weight:700;color:#7c3aed; width: 100%; text-align: center;">Master Data</div>
             <a href="{{ route('kalab.penilaian.index') }}"
                class="sidebar-link {{ request()->routeIs('kalab.penilaian.index','kalab.penilaian.create') ? 'active' : '' }}">
-                <i data-lucide="clipboard-pen" class="icon"></i> Input Penilaian
+                <i data-lucide="clipboard-pen" class="icon"></i> <span class="link-text">Input Penilaian</span>
             </a>
             <a href="{{ route('kalab.penilaian.hasil') }}"
                class="sidebar-link {{ request()->routeIs('kalab.penilaian.hasil','kalab.penilaian.detail') ? 'active' : '' }}">
-                <i data-lucide="bar-chart-3" class="icon"></i> Hasil Rangking
+                <i data-lucide="bar-chart-3" class="icon"></i> <span class="link-text">Hasil Rangking</span>
             </a>
 
             <a href="{{ route('admin.asisten.index') }}"
                class="sidebar-link {{ request()->routeIs('admin.asisten.*') ? 'active' : '' }}">
-                <i data-lucide="users" class="icon"></i> Data Asisten
+                <i data-lucide="users" class="icon"></i> <span class="link-text">Data Asisten</span>
             </a>
             <a href="{{ route('admin.kriteria.index') }}"
                class="sidebar-link {{ request()->routeIs('admin.kriteria.*') ? 'active' : '' }}">
-                <i data-lucide="list-todo" class="icon"></i> Kriteria & Rubrik
+                <i data-lucide="list-todo" class="icon"></i> <span class="link-text">Kriteria & Rubrik</span>
             </a>
             <a href="{{ route('admin.semester.index') }}"
                class="sidebar-link {{ request()->routeIs('admin.semester.*') ? 'active' : '' }}">
-                <i data-lucide="calendar-days" class="icon"></i> Kelola Semester
+                <i data-lucide="calendar-days" class="icon"></i> <span class="link-text">Kelola Semester</span>
             </a>
 
             @elseif($user->role === 'kalab')
@@ -172,15 +212,15 @@
 
             <a href="{{ route('kalab.dashboard') }}"
                class="sidebar-link {{ request()->routeIs('kalab.dashboard') ? 'active' : '' }}">
-                <i data-lucide="layout-dashboard" class="icon"></i> Dashboard
+                <i data-lucide="layout-dashboard" class="icon"></i> <span class="link-text">Dashboard</span>
             </a>
             <a href="{{ route('kalab.penilaian.index') }}"
                class="sidebar-link {{ request()->routeIs('kalab.penilaian.index','kalab.penilaian.create') ? 'active' : '' }}">
-                <i data-lucide="clipboard-pen" class="icon"></i> Input Penilaian
+                <i data-lucide="clipboard-pen" class="icon"></i> <span class="link-text">Input Penilaian</span>
             </a>
             <a href="{{ route('kalab.penilaian.hasil') }}"
                class="sidebar-link {{ request()->routeIs('kalab.penilaian.hasil','kalab.penilaian.detail') ? 'active' : '' }}">
-                <i data-lucide="bar-chart-3" class="icon"></i> Hasil Rangking
+                <i data-lucide="bar-chart-3" class="icon"></i> <span class="link-text">Hasil Rangking</span>
             </a>
             @endif
             @endif
@@ -213,11 +253,11 @@
     </aside>
 
     {{-- =========== MAIN CONTENT =========== --}}
-    <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;">
+    <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;" id="main">
 
         {{-- Top Bar --}}
-        <header style="background:#fff;border-bottom:1.5px solid #ede9fe;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:20;box-shadow:0 1px 0 #f3f0ff;">
-            <div>
+        <header id="header" style="background:#fff;border-bottom:1.5px solid #ede9fe;padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:20;box-shadow:0 1px 0 #f3f0ff;">
+            <div id="semester_title">
                 <div style="font-size:15px;font-weight:700;color:#2e1065;letter-spacing:-.02em;">
                     @if(Auth::check() && Auth::user()->role === 'admin')
                         Sistem Pendukung Keputusan &mdash; Administrator
@@ -225,10 +265,7 @@
                         Sistem Pendukung Keputusan &mdash; Kepala Laboratorium
                     @endif
                 </div>
-                <div style="font-size:11px;color:#94a3b8;margin-top:1px;display:flex;align-items:center;gap:6px;">
-                    <span>STMIK Widya Cipta Dharma</span>
-                    <span style="color:#ddd6fe;">·</span>
-                    <span>Profile Matching</span>
+                <div style="font-size:11px;color:#94a3b8;margin-top:1px;display:flex;">
                     @if(isset($currentSemester) && $currentSemester)
                         <span style="color:#ddd6fe;">·</span>
                         <span style="color:#7c3aed;font-weight:600;">{{ $currentSemester->nama_semester }}</span>
@@ -236,7 +273,7 @@
                 </div>
             </div>
 
-            <div style="display:flex;align-items:center;gap:12px;">
+            <div id="status-semester" style="display:flex;align-items:center;gap:12px;">
                 @if(isset($isArchive) && $isArchive)
                 <span style="font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px;background:#fef3c7;color:#92400e;border:1.5px solid #fde68a;">
                     <i data-lucide="archive" style="width:11px;height:11px;display:inline;vertical-align:middle;margin-right:4px;"></i>
@@ -274,6 +311,32 @@
     <script>
         lucide.createIcons();
         if (window.Chart) Chart.defaults.font.family = "'Poppins', sans-serif";
+        let status = "close"
+        let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+        function handleNav() {
+            const linkTextArr = Array.from(document.getElementsByClassName("link-text"));
+            if(status === "close"){
+                document.getElementById("sidebar").style.width = "240px";
+                if(vw >= 792){
+                    document.getElementById("main").style.marginLeft = "240px";
+                }
+                linkTextArr.forEach(el => {
+                    el.style.opacity = "1";
+                })
+                status = "open";
+            } else {
+                document.getElementById("sidebar").style.width = "65px";
+                if(vw >= 792){
+                    document.getElementById("main").style.marginLeft= "65px";
+                }
+                linkTextArr.forEach(el => {
+                    el.style.opacity = "0";
+                })
+                status = "close";
+            }
+        }
     </script>
 </body>
 </html>
