@@ -130,6 +130,12 @@
             transition: margin-left .5s;
             margin-left: 70px;
         }
+        #header{
+            padding-block: 1.3rem !important;
+        }
+        #title-container{
+            display: none;
+        }
         @media screen and (max-width: 792px) {
             #header{
                 flex-direction: column;
@@ -161,7 +167,7 @@
                 <div style="width:42px;height:42px;border-radius:12px;background:#fff;padding:4px;flex-shrink:0;border:1.5px solid rgba(196,181,253,.3);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.12);">
                     <img src="{{ asset('images/logo-labcom.png') }}" alt="Logo" style="width:100%;height:100%;object-fit:contain; cursor:pointer" onclick="handleNav()">
                 </div>
-                <div>
+                <div id="title-container">
                     <div style="font-size:13px;font-weight:800;color:#ede9fe;letter-spacing:.04em;line-height:1.2;">LABCOM WICIDA</div>
                     <div style="font-size:10px;color:#a78bfa;font-weight:500;margin-top:1px;">SPK Evaluasi Aslab</div>
                 </div>
@@ -325,6 +331,7 @@
                 linkTextArr.forEach(el => {
                     el.style.opacity = "1";
                 })
+                document.getElementById("title-container").style.display = "block";
                 status = "open";
             } else {
                 document.getElementById("sidebar").style.width = "65px";
@@ -334,6 +341,7 @@
                 linkTextArr.forEach(el => {
                     el.style.opacity = "0";
                 })
+                document.getElementById("title-container").style.display = "none";
                 status = "close";
             }
         }
